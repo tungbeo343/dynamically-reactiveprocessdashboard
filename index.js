@@ -1,10 +1,14 @@
-function numSquares(n) {
-  const dp = new Array(n + 1).fill(Infinity);
-  dp[0] = 0;
-  for (let i = 1; i <= n; i++) {
-    for (let j = 1; j * j <= i; j++) {
-      dp[i] = Math.min(dp[i], dp[i - j * j] + 1);
+function lengthOfLIS(nums) {
+  if (nums.length === 0) return 0;
+  const dp = new Array(nums.length).fill(1);
+  let max = 1;
+  for (let i = 1; i < nums.length; i++) {
+    for (let j = 0; j < i; j++) {
+      if (nums[i] > nums[j]) {
+        dp[i] = Math.max(dp[i], dp[j] + 1);
+        max = Math.max(max, dp[i]);
+      }
     }
   }
-  return dp[n];
+  return max;
 }
